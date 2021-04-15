@@ -9,15 +9,17 @@ function Home() {
 
     const {isLoading, error, data} = useQuery('getAllPosts', getAllPosts);
 
+    if (loading) {
+        return <p>Loading session...</p>;
+    }
+
     if (isLoading) {
-        return null;
+        return <p>Loading query...</p>;
     }
 
     if (error) {
         return <p>Error: {error}</p>
     }
-
-    console.log({data});
 
     return (
         <div>
