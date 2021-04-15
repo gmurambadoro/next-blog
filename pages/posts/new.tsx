@@ -1,4 +1,5 @@
 import {useState} from "react";
+import Link from "next/link";
 import {useMutation} from "react-query";
 import {createPost} from "../../api/posts";
 import {useRouter} from "next/router";
@@ -33,7 +34,8 @@ const CreatePost = () => {
     return (
         <Layout>
             <form onSubmit={handleSubmit}>
-                <h2>Create a new Post</h2>
+                <h1>Create a new Post</h1>
+
                 <label>
                     Title: { ' ' }
                     <input
@@ -57,6 +59,12 @@ const CreatePost = () => {
 
                 <br />
                 <br />
+
+                <Link href={"/"} passHref>
+                    <a>&laquo; Back to Posts</a>
+                </Link>
+
+                { ' '}
 
                 <button type={"submit"}>+ Save Post</button>
             </form>
