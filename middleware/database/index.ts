@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import {NextApiRequest, NextApiResponse} from "next";
+import {DATABASE_URL} from "../../config";
 
 const database = (handler) => async (req: NextApiRequest, res: NextApiResponse, ...restArgs) => {
     if (mongoose.connections[0].readyState) {
@@ -8,7 +9,7 @@ const database = (handler) => async (req: NextApiRequest, res: NextApiResponse, 
     }
 
     // Use new db connection
-    await mongoose.connect(process.env.mongodburl, {
+    await mongoose.connect(DATABASE_URL, {
         useUnifiedTopology: true,
         useFindAndModify: false,
         useCreateIndex: true,

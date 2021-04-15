@@ -1,8 +1,9 @@
 import {NextApiRequest, NextApiResponse} from "next";
+import database from "../../../middleware/database";
 
 const allowedMethods = ['GET', 'POST'];
 
-export default async (req: NextApiRequest, res: NextApiResponse): Promise<void> => {
+const handler = async (req: NextApiRequest, res: NextApiResponse): Promise<void> => {
     try {
         if (!allowedMethods.filter(method => req.method === method).length) {
             return res.status(400).json('Allowed Methods: ' + allowedMethods.join(','));
@@ -17,3 +18,5 @@ export default async (req: NextApiRequest, res: NextApiResponse): Promise<void> 
         return res.status(500).json(err);
     }
 };
+
+export default database(handler);
