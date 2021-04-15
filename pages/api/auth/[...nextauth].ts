@@ -3,6 +3,8 @@ import Providers from "next-auth/providers";
 import {APP_ENV, APP_SECRET, DATABASE_URL, GITHUB_ID, GITHUB_SECRET} from "../../../config";
 import {JWT} from "next-auth/jwt";
 
+const debug = (APP_ENV === 'dev');
+
 export default NextAuth({
     providers: [
         Providers.GitHub({
@@ -10,14 +12,12 @@ export default NextAuth({
             clientSecret: GITHUB_SECRET,
         }),
     ],
+    debug,
     database: DATABASE_URL,
     secret: APP_SECRET,
-    debug: APP_ENV === 'dev',
     callbacks: {
         // @ts-ignore
         session: (session: Session, jwt: User|JWT) => {
-            console.log(session.accessToken, jwt);
-
             // @ts-ignore
             const {id = null} = jwt;
 
