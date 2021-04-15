@@ -1,4 +1,10 @@
 import mongoose, {Schema} from "mongoose";
+import {DATABASE_URL} from "../config";
+
+mongoose.connect(DATABASE_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+});
 
 const postSchema = new Schema({
     title: {
@@ -23,7 +29,7 @@ const postSchema = new Schema({
     },
 });
 
-const Post = mongoose.model('Post', postSchema);
+const Post = mongoose.models.Post || mongoose.model('Post', postSchema);
 
 export { Post };
 

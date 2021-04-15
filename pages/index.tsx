@@ -1,9 +1,20 @@
 import {signIn, signOut, useSession} from "next-auth/client";
+import {useQuery} from "react-query";
+import {getAllPosts} from "../api/posts";
 
 function Home() {
     const [session, loading] = useSession();
+    const handleAuth = session ? signOut : signIn;
 
-    const authenticationMethod = session ? signOut : signIn;
+    const {isLoading, error, data} = useQuery('posts', getAllPosts);
+
+    if (isLoading) {
+        return null;
+    }
+
+    if (error) {
+        return <p>Error: {error}</p>
+    }
 
     return (
         <div>
@@ -15,7 +26,19 @@ function Home() {
 
             <br />
 
-            <button onClick={() => authenticationMethod()}>{session ? 'Sign Out' : 'Sign In'}</button>
+            <button onClick={() => handleAuth()}>{session ? 'Sign Out' : 'Sign In'}</button>
+
+            {
+                session &&
+
+                <>
+                    {!data?.length && <p>There are no posts.</p>}
+
+                    {data?.length ? <h1>Posts</h1> : null}
+
+                    {data?.length ? data.map(post => <p key={post.id}>{post.title}</p>) : null}
+                </>
+            }
 
         </div>
     );
