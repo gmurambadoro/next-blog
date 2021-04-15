@@ -1,5 +1,5 @@
 import {NextApiRequest, NextApiResponse} from "next";
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
-    return res.status(200).json({ message: "Hello, world!" });
+export default async (req: NextApiRequest, res: NextApiResponse): Promise<void> => {
+    res.status(200).json({ message: "Hello, world!" });
 };
