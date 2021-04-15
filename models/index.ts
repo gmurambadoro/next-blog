@@ -1,10 +1,18 @@
 import mongoose, {Schema} from "mongoose";
 import {DATABASE_URL} from "../config";
 
-mongoose.connect(DATABASE_URL, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-});
+mongoose.Promise = global.Promise;
+
+const connect = async () => {
+    await mongoose.connect(DATABASE_URL, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+    });
+};
+
+(async () => {
+    await connect()
+})(); // connect asynchronously to mongodb
 
 const postSchema = new Schema({
     title: {

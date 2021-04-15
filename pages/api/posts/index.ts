@@ -29,7 +29,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     }
 
     // find posts by this user
-    const posts = await Post.find({ authorId: session.user.id }).exec();
+    const posts = await Post.find({ authorId: session.user.id });
 
     return res.status(200).json(posts);
 };

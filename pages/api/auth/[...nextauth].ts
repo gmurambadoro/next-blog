@@ -13,6 +13,12 @@ export default NextAuth({
         }),
     ],
     debug,
+    session: {
+        jwt: false,
+    },
+    jwt: {
+        secret: APP_SECRET,
+    },
     database: DATABASE_URL,
     secret: APP_SECRET,
     callbacks: {
