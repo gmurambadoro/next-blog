@@ -2,15 +2,21 @@ import Link from "next/link";
 import {signIn, signOut, useSession} from "next-auth/client";
 import {useQuery} from "react-query";
 import {getAllPosts} from "../api/posts";
+import {useRouter} from "next/router";
 
-function Home() {
+const Home = () => {
     const [session, loading] = useSession();
-    const handleAuth = session ? signOut : signIn;
+    const authHandler = session ? signOut : signIn;
+    const router = useRouter();
 
     const {isLoading, error, data} = useQuery('getAllPosts', getAllPosts);
 
     if (loading) {
         return <p>Loading session...</p>;
+    }
+
+    if (!loading && !session) {
+        return router.push('/api/auth/signin');
     }
 
     if (isLoading) {
@@ -29,7 +35,7 @@ function Home() {
 
             <br />
 
-            <button onClick={() => handleAuth()}>{session ? 'Sign Out' : 'Sign In'}</button>
+            <button onClick={() => authHandler()}>{session ? 'Sign Out' : 'Sign In'}</button>
 
             {
                 session &&
