@@ -1,8 +1,6 @@
 import Link from "next/link";
-import {signIn, signOut, useSession} from "next-auth/client";
 import {useQuery} from "react-query";
 import {getAllPosts} from "../api/posts";
-import {useRouter} from "next/router";
 import Layout from "../components/Layout";
 
 const Home = () => {
@@ -20,7 +18,6 @@ const Home = () => {
         <Layout>
             <>
                 {!data?.length && <p>There are no posts.</p>}
-
 
                 <h1>
                     Posts
