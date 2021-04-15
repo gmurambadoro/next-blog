@@ -56,7 +56,7 @@ const CreatePost = () => {
             <br />
             <br />
 
-            <button type={"submit"}>+ Save</button>
+            <button type={"submit"}>+ Save Post</button>
         </form>
     );
 };

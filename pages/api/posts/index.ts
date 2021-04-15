@@ -18,12 +18,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
     if (method === 'POST') {
         const post = new Post({
-            title: 'Post #1',
-            content: `
-            # Header 1
-            
-            This is a [Link](https://google.com).
-            `,
+            title: body.title,
+            content: body.content || '',
             authorId: session.user.id,
         });
 
